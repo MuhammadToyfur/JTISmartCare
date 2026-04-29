@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            //
+            $table->string('source_name')->nullable()->after('author_id');
+            $table->string('source_url')->nullable()->after('source_name');
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('articles', function (Blueprint $table) {
-            //
+            $table->dropColumn(['source_name', 'source_url']);
         });
     }
 };
