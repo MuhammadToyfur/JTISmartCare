@@ -2,11 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiagnosisController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\KnowledgeController;
+use App\Http\Controllers\ArticleController;
 
 // ===== HALAMAN AWAL =====
-Route::get('/', function() {
-    return redirect()->route('login');
-})->name('home');
+Route::get('/', [AuthController::class, 'showLogin'])->name('home');
 
 // ===== AUTENTIKASI =====
 Route::middleware('guest')->group(function () {
@@ -21,13 +24,29 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 
 // ===== AREA USER =====
 Route::middleware(['auth'])->group(function () {
-    // Dashboard Sederhana
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
 
-// Admin Dashboard Redirect (Jika role = admin)
-Route::get('/admin/dashboard', function () {
-    return view('dashboard'); // Untuk sementara disamakan
-})->name('admin.dashboard');
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Diagnosis
+    Route::prefix('diagnosis')->name('diagnosis.')->group(function () {
+        Route::get('/form', [DiagnosisController::class, 'form'])->name('form');
+        Route::post('/proses', [DiagnosisController::class, 'proses'])->name('proses');
+        Route::get('/hasil/{id}', [DiagnosisController::class, 'hasil'])->name('hasil');
+        Route::get('/rekomendasi/{id}', [DiagnosisController::class, 'rekomendasi'])->name('rekomendasi');
+        Route::get('/cetak/{id}', [DiagnosisController::class, 'exportPdf'])->name('cetak');
+    });
+
+    // Riwayat Diagnosis
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+
+    // Knowledge Base
+    Route::get('/knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
+
+    // Artikel
+    Route::prefix('articles')->name('articles.')->group(function () {
+        Route::get('/', [ArticleController::class, 'index'])->name('index');
+        Route::get('/{slug}', [ArticleController::class, 'show'])->name('show');
+    });
+
+});
