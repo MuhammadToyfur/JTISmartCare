@@ -22,7 +22,7 @@
             --bg: #f8fafc;
             --sidebar-bg: #355872;
             --sidebar-hover: #355872;
-            --sidebar-width: 260px;
+            --sidebar-width: 280px;
             --card-radius: 16px;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-display: 'Sora', sans-serif;
@@ -50,20 +50,32 @@
             transition: transform 0.3s ease;
         }
 
-        .sidebar-brand {
-            padding: 30px 10px 20px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-            margin-bottom: 10px;
+       .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         }
-
         .sidebar-brand img {
-            width: 240px;
-            max-width: 100%;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            flex-shrink: 0;
         }
+        .brand-text {
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+            line-height: 1;
+            margin-left: -20px;
+        }
+        .brand-jti   { color: #4dd0e1; }
+        .brand-smart { color: #4dd0e1; }
+        .brand-care  { color: #9CD5FF; }
 
         .sidebar-nav {
-            padding: 16px 20px;
+            padding: 10px 16px;
             flex: 1;
             overflow-y: auto;
         }
@@ -88,7 +100,7 @@
         }
 
         .nav-item a.active {
-            background: var(--sidebar-hover);
+            background: rgba(255,255,255,0.15);
             color: #fff;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
@@ -143,7 +155,7 @@
         }
 
         .btn-logout:hover {
-            background: rgba(0,0,0,0.25);
+            background: rgba(0, 0, 0, 0.25);
             color: #fff;
         }
 
@@ -206,8 +218,11 @@
 
 {{-- SIDEBAR --}}
 <nav class="sidebar" id="sidebar">
-    <div class="sidebar-brand">
+     <div class="sidebar-brand">
         <img src="{{ asset('assets/images/Logo.png') }}" alt="JTI SmartCare">
+        <div class="brand-text">
+            <span class="brand-jti">JTI </span><span class="brand-smart">Smart</span><span class="brand-care">Care</span>
+        </div>
     </div>
 
     <div class="sidebar-nav">
