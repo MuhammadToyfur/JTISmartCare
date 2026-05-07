@@ -160,12 +160,12 @@
         }
 
         /* ===== MAIN CONTENT ===== */
-        .main-content {
+       .main-content {
             margin-left: var(--sidebar-width);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding: 40px;
+            padding: 30px 20px; /* kiri lebih kecil */
         }
 
         /* ===== CARDS ===== */
@@ -266,29 +266,29 @@
     @endauth
 </nav>
 
-{{-- MAIN CONTENT --}}
-<div class="main-content">
-    <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
-    
-    <div class="fade-in">
-        {{-- Flash Messages --}}
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" style="border-radius:12px;border:none;background:#dcfce7;color:#16a34a;">
-                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-        @endif
+    {{-- MAIN CONTENT --}}
+    <div class="main-content">
+        <button class="sidebar-toggle" id="sidebarToggle"><i class="bi bi-list"></i> Menu</button>
+        
+        <div class="fade-in">
+            {{-- Flash Messages --}}
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" style="border-radius:12px;border:none;background:#dcfce7;color:#16a34a;">
+                    <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
 
-        @yield('content')
+            @yield('content')
+        </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-        document.getElementById('sidebar').classList.toggle('open');
-    });
-</script>
-@yield('scripts')
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+    </script>
+    @yield('scripts')
+    </body>
 </html>

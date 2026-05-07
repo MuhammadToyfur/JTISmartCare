@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DiagnosisController extends Controller
 {
@@ -17,19 +18,36 @@ class DiagnosisController extends Controller
     {
         $jawaban = $request->jawaban;
 
-        // sementara cek dulu
-        dd($jawaban);
+        // hitung total skor
+        $total = array_sum($jawaban);
 
-        // nanti:
-        // hitung skor
-        // simpan ke DB
-        // redirect ke hasil
+        // simpan ke session + waktu diagnosis
+        session([
+            'total_skor' => $total,
+            'jawaban'    => $jawaban,
+            'waktu'      => now() // ← TAMBAHAN PENTING
+        ]);
+
+        return redirect()->route('diagnosis.hasil');
     }
 
-    // (opsional, biar ga error kalau diakses)
-    public function hasil($id)
+    // tampilkan hasil
+    public function hasil()
     {
-        return "Halaman hasil ID: " . $id;
+        $total   = session('total_skor');
+        $jawaban = session('jawaban');
+        $waktu   = session('waktu');
+
+        // jaga-jaga kalau session kosong
+        if (!$total || !$jawaban) {
+            return redirect()->route('diagnosis.form');
+        }
+
+        return view('user.hasildiagnosis', [
+            'jawaban' => $jawaban,
+            'total'   => $total,
+            'waktu'   => $waktu
+        ]);
     }
 
     public function rekomendasi($id)

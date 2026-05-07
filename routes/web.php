@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('diagnosis')->name('diagnosis.')->group(function () {
         Route::get('/form', [DiagnosisController::class, 'form'])->name('form');
         Route::post('/proses', [DiagnosisController::class, 'proses'])->name('proses');
-        Route::get('/hasil/{id}', [DiagnosisController::class, 'hasil'])->name('hasil');
+        Route::get('/hasil', [DiagnosisController::class, 'hasil'])->name('hasil');
         Route::get('/rekomendasi/{id}', [DiagnosisController::class, 'rekomendasi'])->name('rekomendasi');
         Route::get('/cetak/{id}', [DiagnosisController::class, 'exportPdf'])->name('cetak');
     });

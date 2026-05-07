@@ -44,7 +44,7 @@
                 <div class="info-title">Sudah mengisi semua pertanyaan?</div>
                 <div class="info-sub">Klik tombol untuk memproses diagnosis menggunakan mesin inferensi SBP.</div>
             </div>
-            <button type="submit" class="btn-diagnosa">
+            <button type="submit" id="btnSubmit" class="btn-diagnosa" disabled>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-right:6px;">
                     <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
                     <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
@@ -386,10 +386,16 @@ function updateProgress() {
     const checked = document.querySelectorAll('input[type=radio]:checked').length;
     const percent = (checked / total) * 100;
 
-    const bar = document.getElementById("progressBar");
-    bar.style.width = percent + "%";
-
+    document.getElementById("progressBar").style.width = percent + "%";
     document.getElementById("progressLabel").innerText = checked + " / " + total + " terjawab";
+
+    const btn = document.getElementById("btnSubmit");
+
+    if (checked === total) {
+        btn.disabled = false;
+    } else {
+        btn.disabled = true;
+    }
 }
 </script>
 
