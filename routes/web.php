@@ -8,8 +8,16 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\ArticleController;
 
+Route::get('/', function () {
+    return redirect()->route('landing');
+});
+
 // ===== HALAMAN AWAL =====
-Route::get('/', [AuthController::class, 'showLogin'])->name('home');
+Route::get('/landing-page', function (){
+    return view('page.landing');
+})-> name('landing');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 
 // ===== AUTENTIKASI =====
 Route::middleware('guest')->group(function () {
